@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Models</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0f;
+    --surface: #16161a;
+    --border: #2a2a32;
+    --text: #e8e6e3;
+    --text-dim: #7f7f8a;
+    --accent-1: #ff6b4a;
+    --accent-2: #f0a500;
+    --accent-3: #4ecdc4;
+    --accent-4: #7b68ee;
+    --accent-5: #ff4081;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 72px 32px 80px;
+  }
+
+  header {
+    margin-bottom: 64px;
+  }
+
+  header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    display: block;
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); }
+  .card:nth-child(2)::before { background: linear-gradient(90deg, var(--accent-3), var(--accent-4)); }
+  .card:nth-child(3)::before { background: linear-gradient(90deg, var(--accent-4), var(--accent-5)); }
+
+  .card:hover { border-color: #3a3a45; }
+
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .card-arrow {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--border);
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 48px 20px 60px; }
+    header h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Mental Models</h1>
+    <p>Visual essays on ideas worth understanding.</p>
+  </header>
+
+  <div class="grid">
+    <a href="/five-prerequisites" class="card">
+      <div class="card-label">Framework</div>
+      <div class="card-title">The 5 Prerequisites for Improvement</div>
+      <div class="card-desc">A filtering funnel — each condition must hold. Based on Roy Rapoport's framework.</div>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>
