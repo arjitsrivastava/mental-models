@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ladder of Autonomy</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0f;
+    --surface: #16161a;
+    --border: #2a2a32;
+    --text: #e8e6e3;
+    --text-dim: #7f7f8a;
+    --l1: #e05c4b;
+    --l2: #e8943a;
+    --l3: #e8c53a;
+    --l4: #6dbf74;
+    --l5: #4ecdc4;
+    --l6: #4a8fe8;
+    --l7: #a374e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Header ---- */
+  header {
+    text-align: center;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+  }
+
+  /* Override inherited text-align so ladder sits left */
+  .ladder-section,
+  .ladder-levels,
+  .callout,
+  .footer-line {
+    text-align: left;
+  }
+
+  header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 3.2rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ---- Ladder illustration ---- */
+  .ladder-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 28px;
+    margin-bottom: 32px;
+    padding-left: 10px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.15s forwards;
+  }
+
+  .ladder-rail {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    animation: drawLine 0.5s ease forwards;
+  }
+  .ladder-rail:nth-child(1) { animation-delay: 0.25s; }
+  .ladder-rail:nth-child(2) { animation-delay: 0.35s; }
+
+  .ladder-rung {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 0.2s ease forwards;
+  }
+  .ladder-rung:nth-child(3)  { animation-delay: 0.50s; }
+  .ladder-rung:nth-child(4)  { animation-delay: 0.57s; }
+  .ladder-rung:nth-child(5)  { animation-delay: 0.64s; }
+  .ladder-rung:nth-child(6)  { animation-delay: 0.71s; }
+  .ladder-rung:nth-child(7)  { animation-delay: 0.78s; }
+  .ladder-rung:nth-child(8)  { animation-delay: 0.85s; }
+  .ladder-rung:nth-child(9)  { animation-delay: 0.92s; }
+
+  @keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .ladder-caption {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    max-width: 260px;
+    line-height: 1.7;
+  }
+
+  .ladder-caption strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ---- Levels ---- */
+  .ladder-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .level {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    align-items: start;
+    padding: 12px 0;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  /* Staircase — 16px steps, clearly readable climb without clipping cards */
+  .level:nth-child(1) { animation-delay: 1.05s; margin-left: 0px;  }
+  .level:nth-child(2) { animation-delay: 1.13s; margin-left: 16px; }
+  .level:nth-child(3) { animation-delay: 1.21s; margin-left: 32px; }
+  .level:nth-child(4) { animation-delay: 1.29s; margin-left: 48px; }
+  .level:nth-child(5) { animation-delay: 1.37s; margin-left: 64px; }
+  .level:nth-child(6) { animation-delay: 1.45s; margin-left: 80px; }
+  .level:nth-child(7) { animation-delay: 1.53s; margin-left: 96px; }
+
+  .level-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 2;
+    margin-left: 10px;
+    flex-shrink: 0;
+    border: 2px solid;
+    background: var(--bg);
+  }
+
+  .level:nth-child(1) .level-number { border-color: var(--l1); color: var(--l1); }
+  .level:nth-child(2) .level-number { border-color: var(--l2); color: var(--l2); }
+  .level:nth-child(3) .level-number { border-color: var(--l3); color: var(--l3); }
+  .level:nth-child(4) .level-number { border-color: var(--l4); color: var(--l4); }
+  .level:nth-child(5) .level-number { border-color: var(--l5); color: var(--l5); }
+  .level:nth-child(6) .level-number { border-color: var(--l6); color: var(--l6); }
+  .level:nth-child(7) .level-number { border-color: var(--l7); color: var(--l7); }
+
+  .level-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 22px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .level-content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .level:nth-child(1) .level-content::before { background: linear-gradient(90deg, var(--l1), transparent); }
+  .level:nth-child(2) .level-content::before { background: linear-gradient(90deg, var(--l2), transparent); }
+  .level:nth-child(3) .level-content::before { background: linear-gradient(90deg, var(--l3), transparent); }
+  .level:nth-child(4) .level-content::before { background: linear-gradient(90deg, var(--l4), transparent); }
+  .level:nth-child(5) .level-content::before { background: linear-gradient(90deg, var(--l5), transparent); }
+  .level:nth-child(6) .level-content::before { background: linear-gradient(90deg, var(--l6), transparent); }
+  .level:nth-child(7) .level-content::before { background: linear-gradient(90deg, var(--l7), transparent); }
+
+  .level-mode {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+
+  .level:nth-child(1) .level-mode { color: var(--l1); }
+  .level:nth-child(2) .level-mode { color: var(--l2); }
+  .level:nth-child(3) .level-mode { color: var(--l3); }
+  .level:nth-child(4) .level-mode { color: var(--l4); }
+  .level:nth-child(5) .level-mode { color: var(--l5); }
+  .level:nth-child(6) .level-mode { color: var(--l6); }
+  .level:nth-child(7) .level-mode { color: var(--l7); }
+
+  .level-phrase {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .level-desc {
+    color: var(--text-dim);
+    font-size: 0.87rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .manager-note {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 0.83rem;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  .manager-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .level:nth-child(1) .manager-label { color: var(--l1); }
+  .level:nth-child(2) .manager-label { color: var(--l2); }
+  .level:nth-child(3) .manager-label { color: var(--l3); }
+  .level:nth-child(4) .manager-label { color: var(--l4); }
+  .level:nth-child(5) .manager-label { color: var(--l5); }
+  .level:nth-child(6) .manager-label { color: var(--l6); }
+  .level:nth-child(7) .manager-label { color: var(--l7); }
+
+  /* ---- Callout ---- */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-top: 16px;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.75s forwards;
+  }
+
+  .callout-label {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+
+  .callout p {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: var(--text-dim);
+  }
+
+  .callout p strong {
+    color: var(--text);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.95s forwards;
+  }
+
+  .footer-line {
+    width: 64px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--l1), var(--l4), var(--l7));
+    margin: 0 auto 20px;
+    border-radius: 1px;
+  }
+
+  .footer p {
+    color: var(--text-dim);
+    font-style: italic;
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.15rem;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 640px) {
+    .container { padding: 40px 16px 60px; }
+    header h1  { font-size: 2.2rem; }
+    .level:nth-child(n) { margin-left: 0 !important; }
+    .level-phrase { font-size: 1.2rem; }
+    .level { grid-template-columns: 56px 1fr; }
+    .level-number { width: 38px; height: 38px; font-size: 1.1rem; }
+    .ladder-section { flex-direction: column; gap: 16px; }
+    .ladder-caption { max-width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>The Ladder of Autonomy</h1>
+    <p>Autonomy isn't a personality trait — it's contextual. The right level depends on the task, not just the title.</p>
+  </header>
+
+  <div class="ladder-section">
+    <svg viewBox="0 0 160 320" width="100" height="200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Rails -->
+      <line class="ladder-rail" x1="30" y1="6"   x2="30" y2="314" stroke="#2a2a32" stroke-width="7" stroke-linecap="round"/>
+      <line class="ladder-rail" x1="130" y1="6"  x2="130" y2="314" stroke="#2a2a32" stroke-width="7" stroke-linecap="round"/>
+      <!-- Rungs bottom→top: L1–L7 -->
+      <line class="ladder-rung" x1="30" y1="302" x2="130" y2="302" stroke="#e05c4b" stroke-width="6" stroke-linecap="round"/>
+      <line class="ladder-rung" x1="30" y1="256" x2="130" y2="256" stroke="#e8943a" stroke-width="6" stroke-linecap="round"/>
+      <line class="ladder-rung" x1="30" y1="210" x2="130" y2="210" stroke="#e8c53a" stroke-width="6" stroke-linecap="round"/>
+      <line class="ladder-rung" x1="30" y1="164" x2="130" y2="164" stroke="#6dbf74" stroke-width="6" stroke-linecap="round"/>
+      <line class="ladder-rung" x1="30" y1="118" x2="130" y2="118" stroke="#4ecdc4" stroke-width="6" stroke-linecap="round"/>
+      <line class="ladder-rung" x1="30" y1="72"  x2="130" y2="72"  stroke="#4a8fe8" stroke-width="6" stroke-linecap="round"/>
+      <line class="ladder-rung" x1="30" y1="26"  x2="130" y2="26"  stroke="#a374e8" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <p class="ladder-caption">Seven levels — from <strong>full direction</strong> at the bottom to <strong>near-total independence</strong> at the top.<br><br>The right rung depends on the person <em>and</em> the task.</p>
+  </div>
+
+  <div class="ladder-levels">
+
+    <div class="level">
+      <div class="level-number">1</div>
+      <div class="level-content">
+        <div class="level-mode">Directed</div>
+        <div class="level-phrase">"Tell me what to do."</div>
+        <div class="level-desc">Brand new territory — unfamiliar role, task, or domain. Needs structure and clarity just to get started.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Reduce ambiguity. Answer every question without judgment. Make the path clear.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-number">2</div>
+      <div class="level-content">
+        <div class="level-mode">Forming</div>
+        <div class="level-phrase">"I think..."</div>
+        <div class="level-desc">Starting to form opinions. Testing ideas tentatively — not yet confident enough to fully own them.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Encourage them to voice ideas. Ask "why" gently. Validate the thinking, not just the outcome.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-number">3</div>
+      <div class="level-content">
+        <div class="level-mode">Proposing</div>
+        <div class="level-phrase">"I recommend..."</div>
+        <div class="level-desc">Has done the research. Brings a proposal with options considered and trade-offs called out.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Check alignment with priorities. Ask "does this solve the right problem?" Refine together.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-number">4</div>
+      <div class="level-content">
+        <div class="level-mode">Checking in</div>
+        <div class="level-phrase">"I request permission to..."</div>
+        <div class="level-desc">High-stakes or novel territory. Has a clear plan — wants a sanity check before pulling the trigger.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Weigh risks together. Usually say yes — only pause for genuine danger signals.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-number">5</div>
+      <div class="level-content">
+        <div class="level-mode">Independent</div>
+        <div class="level-phrase">"I intend to..."</div>
+        <div class="level-desc">Confident, independent decision-making. Informing you, not asking. Trust is established.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Get out of the way. Speak up only if something is genuinely on fire.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-number">6</div>
+      <div class="level-content">
+        <div class="level-mode">Proactive</div>
+        <div class="level-phrase">"I've done..."</div>
+        <div class="level-desc">Acts first, tells you after. Proactively executes in their domain without needing a green light.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Remove blockers. Make decisions visible so others can learn from them.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-number">7</div>
+      <div class="level-content">
+        <div class="level-mode">Autonomous</div>
+        <div class="level-phrase">"I've been doing..."</div>
+        <div class="level-desc">Domain owner. Manages an entire area independently over time. Consistently reliable — no supervision needed.</div>
+        <div class="manager-note">
+          <span class="manager-label">Manager →</span>
+          <span>Champion their work. Offer bigger strategic challenges. Encourage them to mentor others.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Key principle — Task Relevant Maturity</div>
+    <p>Autonomy follows competence in context — not job title. Reassess with every new challenge. For example: <strong>a staff engineer might be Level 7 in their core domain and Level 2 on their first infrastructure migration.</strong> Same person, different rungs.</p>
+  </div>
+
+  <div class="footer">
+    <div class="footer-line"></div>
+    <p>Autonomy is built incrementally. The goal is to need less direction — not to never need any.</p>
+    <p style="margin-top: 28px; font-size: 1rem; font-family: 'DM Sans', sans-serif; font-style: normal; opacity: 0.85;">From <a href="https://www.oldschoolburke.com/the-scale-of-autonomy/" target="_blank" style="color: var(--l5); text-decoration: none; font-weight: 600;">The Ladder of Autonomy</a> — drawing on <a href="https://en.wikipedia.org/wiki/Turn_the_Ship_Around!" target="_blank" style="color: var(--l5); text-decoration: none; font-weight: 600;">David Marquet's leadership levels</a> and <a href="https://en.wikipedia.org/wiki/High_Output_Management" target="_blank" style="color: var(--l5); text-decoration: none; font-weight: 600;">Andy Grove's Task Relevant Maturity</a>.</p>
+  </div>
+
+</div>
+</body>
+</html>
